@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en" ng-app="phonecatApp" ng-controller="PhoneListCtrl">
+<head>
+  <meta charset="utf-8">
+  <title ng-bind-template="Google Phone Gallery: {{query}}">Google Phone Gallery</title>
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="css/app.css">
+    <style>
+        td {
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div ng-view></div>
+
+    <!--<pre>{{phones | filter:query | orderBy:orderProp | json}}</pre>-->
+    
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+
+</body>
+</html>
