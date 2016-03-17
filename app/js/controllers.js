@@ -3,19 +3,17 @@
 (function() {
     
     angular.module('phonecatControllers', [])
-    .controller('PhoneListCtrl', ['$scope', '$http', PhoneListCtrl])
-    .controller('PhoneDetailCtrl', ['$scope', '$routeParams', '$http', PhoneDetailCtrl])
+    .controller('PhoneListCtrl', ['$scope', 'Phone', PhoneListCtrl])
+    .controller('PhoneDetailCtrl', ['$scope', '$routeParams', 'Phone', PhoneDetailCtrl])
     .run(['$rootScope', function($rootScope) {
         $rootScope.$on('queryEmit', function(event, args) {
             $rootScope.$broadcast('queryBroadcast', args);
         });
     }]);
 
-    function PhoneListCtrl($scope, $http) {
+    function PhoneListCtrl($scope, Phone) {
 
-        $http.get('phones/phones.json').success(function(data) {
-            $scope.phones = data;
-        });
+        $scope.phones = Phone.query();
 
         $scope.name = "World";
         $scope.query = "";
@@ -30,11 +28,20 @@
         });  
     }
     
-    function PhoneDetailCtrl($scope, $routeParams, $http) {
+    function PhoneDetailCtrl($scope, $routeParams, Phone) {
         $scope.phoneId = $routeParams.phoneId;
-        $http.get('phones/' + $routeParams.phoneId + '.json').success(function(data) {
-            $scope.phone = data;
-        });
+        
+            $scope.phone = Phone.get({phoneId: $routeParams.phoneId}, function(phone) {
+                $scope.mainImageUrl = phone.images[0];
+            });
+        
+        $scope.setImage = function(imageUrl) {
+            $scope.mainImageUrl = imageUrl;
+        };
+        
+        $scope.hello = function(name) {
+            alert('Hello ' + (name || 'world') + '!');
+        }
     }
     
 })();
