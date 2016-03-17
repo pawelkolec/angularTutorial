@@ -2,7 +2,7 @@
 
 (function() {
     
-    angular.module('phonecatApp', ['ngRoute', 'phonecatControllers', 'phonecatFilters', 'phonecatServices'])
+    angular.module('phonecatApp', ['ngRoute', 'phonecatControllers', 'phonecatFilters', 'phonecatServices', 'phonecatAnimations'])
         .config(['$routeProvider', RouteConfig]);
     
     function RouteConfig($routeProvider) {
