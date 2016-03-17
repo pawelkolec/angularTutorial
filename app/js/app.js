@@ -2,23 +2,35 @@
 
 (function() {
     
-    angular.module('phonecatApp', ['ngRoute', 'phonecatControllers', 'phonecatFilters', 'phonecatServices', 'phonecatAnimations'])
-        .config(['$routeProvider', RouteConfig]);
+    angular.module('phonecatApp', ['ui.router', 'phonecatControllers', 'phonecatFilters', 'phonecatServices', 'phonecatAnimations'])
+        .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', RouteConfig]);
     
-    function RouteConfig($routeProvider) {
+    function RouteConfig($stateProvider, $urlRouterProvider) {
+		
+		$urlRouterProvider.otherwise("");
                 
-        $routeProvider.
-          when('/phones', {
-              templateUrl: 'partials/phone-list.html',
-              controller: 'PhoneListCtrl'
-          }).
-          when('/phones/:phoneId', {
-              templateUrl: 'partials/phone-detail.html',
-              controller: 'PhoneDetailCtrl'
-          }).
-          otherwise({
-              redirectTo: '/phones'
-          });
+        $stateProvider
+			.state('home', {
+				url: "",
+				views: {
+					'header': {
+						templateUrl: 'partials/header.html'
+					},
+					'content': {
+						templateUrl: 'partials/phone-list.html',
+						controller: 'PhoneListCtrl'
+					}
+        		}
+			})
+			.state('home.phoneDetails', {
+				url: "/phone/:phoneId",
+				views: {
+					'content@': {
+						templateUrl: 'partials/phone-detail.html',
+						controller: 'PhoneDetailCtrl'
+					}
+        		}
+			});
     }
 
 })();
