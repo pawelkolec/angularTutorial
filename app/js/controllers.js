@@ -34,7 +34,7 @@
 		$scope.phone = Phone.get({phoneId: $stateParams.phoneId}, function(phone) {
 			
 			if(phone.images == null) {
-				$location.path("/");
+				$location.path("/").replace();
 				return;
 			}
 			
