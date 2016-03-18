@@ -1,0 +1,94 @@
+module.exports = function(grunt) {
+	'use strict'; 
+    
+    var path = require('path');
+    
+    grunt.initConfig({
+        express: {
+			dev: {
+		  		options: {
+					script: 'server.js',
+					background: true
+			  	}
+			},
+		  	prod: {
+      			options: {
+        			script: 'server.js',
+        			node_env: 'production',
+					background: false
+      			}
+    		}
+	  	},
+		
+        concat: {
+			options: {
+			  separator: ';',
+			},
+			dist: {
+			  src: [
+				'app/bower_components/jquery/dist/jquery.js',
+				'app/bower_components/angular/angular.js',
+				'app/bower_components/angular-resource/angular-resource.js',
+				'app/bower_components/angular-ui-router/release/angular-ui-router.min.js',
+				'app/bower_components/angular-animate/angular-animate.js',
+				'app/js/**/*.js',
+			  ],
+			  dest: 'dist/build.js',
+			},
+		},
+        watch: {
+		  	options: {
+    			livereload: true
+  			},
+    		express: {
+      			files:  [ 
+                    '**/*.js'
+                ],
+      			tasks:  [ 'express:dev' ],
+      			options: {
+        			spawn: false // for grunt-contrib-watch v0.5.0+, "nospawn: true" for lower versions. Without this option specified 	express won't be reloaded
+      			}
+    		}
+  		},
+        
+        processhtml: {
+			dist: {
+		  		files: {
+					'dist/index.html': ['app/index.html']
+			  	}
+			}
+	  	},
+		
+		cssmin: {
+	  		target: {
+				files: {
+			  		'dist/style.min.css': ['app/bower_components/bootstrap/dist/css/bootstrap.css', 'app/css/**/*.css']
+				}
+		  	}
+  		},
+		copy: {
+			main: {
+				files: [
+					{ expand: true, cwd: 'app', src: ['partials/**'], dest: 'dist' },
+					{ expand: true, cwd: 'app', src: ['phones/**'], dest: 'dist' },
+					{ expand: true, cwd: 'app', src: ['img/**'], dest: 'dist' },
+				],
+			},
+		},
+		
+		clean: ["dist"]
+    });
+    
+    grunt.loadNpmTasks('grunt-contrib-concat'); 
+	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-contrib-clean');
+	grunt.loadNpmTasks('grunt-contrib-cssmin');
+	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-regex-replace');
+	grunt.loadNpmTasks('grunt-processhtml');
+	grunt.loadNpmTasks('grunt-express-server');
+	
+	grunt.registerTask('build-dist', ["clean", "processhtml", "cssmin", "concat"]);
+	grunt.registerTask('serve', ['express:dev', 'watch']);
+	grunt.registerTask('serve:dist', ['build-dist', 'copy', 'express:prod']);
+}

@@ -1,11 +1,14 @@
 <!doctype html>
 <html lang="en" ng-app="phonecatApp" ng-controller="PhoneListCtrl">
 <head>
-  <meta charset="utf-8">
-  <title ng-bind-template="Google Phone Gallery: {{query}}">Google Phone Gallery</title>
-  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
-  <link rel="stylesheet" href="css/app.css">
-  <link rel="stylesheet" href="css/animations.css">
+	<meta charset="utf-8">
+	<title ng-bind-template="Google Phone Gallery: {{query}}">Google Phone Gallery</title>
+  
+	<!-- build:css style.min.css -->
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+	<link rel="stylesheet" href="css/app.css">
+	<link rel="stylesheet" href="css/animations.css">
+	<!-- /build -->
 </head>
 <body>
     
@@ -16,6 +19,7 @@
 
     <!--<pre>{{phones | filter:query | orderBy:orderProp | json}}</pre>-->
     
+    <!-- build:js build.js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
@@ -26,6 +30,7 @@
     <script src="js/filters.js"></script>
     <script src="js/services.js"></script>
     <script src="js/animations.js"></script>
+	<!-- /build -->
 
 </body>
 </html>

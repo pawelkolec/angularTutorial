@@ -5,7 +5,7 @@
     angular.module('phonecatApp', ['ui.router', 'phonecatControllers', 'phonecatFilters', 'phonecatServices', 'phonecatAnimations'])
         .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', RouteConfig]);
     
-    function RouteConfig($stateProvider, $urlRouterProvider) {
+    function RouteConfig($stateProvider, $urlRouterProvider, $locationProvider) {
 		
 		$urlRouterProvider.otherwise("");
                 
@@ -31,6 +31,12 @@
 					}
         		}
 			});
+		
+		/*
+		$locationProvider.html5Mode({
+		  enabled: true,
+		  requireBase: false
+		});*/
     }
 
 })();
