@@ -36,7 +36,7 @@
 		  requireBase: false
 		});
 		
-		$urlRouterProvider.otherwise("");
+		$urlRouterProvider.otherwise("/");
     }
 
 })();
