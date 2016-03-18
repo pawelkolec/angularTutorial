@@ -6,7 +6,7 @@ var logger = require('morgan');
 var path = require('path');
 
 var app = express();
-var PORT = 4521;
+var PORT = 8000;
 var STATIC_DIR = __dirname;
 
 if(process.env.NODE_ENV == 'production') {
@@ -20,9 +20,6 @@ app.use(logger('dev'));
 app.use(express.static(STATIC_DIR));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
-app.use('/partials/*', express.static(__dirname + '/app/partials'));
-
 
 //redirect all requests to main file
 app.get('*', function(req, res) {
