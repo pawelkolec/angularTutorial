@@ -21,6 +21,8 @@ app.use(express.static(STATIC_DIR));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.use("/phone", express.static(STATIC_DIR));
+
 //redirect all requests to main file
 app.get('*', function(req, res) {
 	res.sendFile(path.join(STATIC_DIR + '/index.html'));

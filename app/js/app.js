@@ -7,11 +7,10 @@
     
     function RouteConfig($stateProvider, $urlRouterProvider, $locationProvider) {
 		
-		$urlRouterProvider.otherwise("");
-                
+           
         $stateProvider
 			.state('home', {
-				url: "",
+				url: "/",
 				views: {
 					'header': {
 						templateUrl: 'partials/header.html'
@@ -23,7 +22,7 @@
         		}
 			})
 			.state('home.phoneDetails', {
-				url: "/phone/:phoneId",
+				url: "phone/:phoneId",
 				views: {
 					'content@': {
 						templateUrl: 'partials/phone-detail.html',
@@ -32,11 +31,12 @@
         		}
 			});
 		
-		/*
 		$locationProvider.html5Mode({
 		  enabled: true,
 		  requireBase: false
-		});*/
+		});
+		
+		$urlRouterProvider.otherwise("");
     }
 
 })();
