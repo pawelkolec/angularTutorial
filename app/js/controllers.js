@@ -4,7 +4,7 @@
     
     angular.module('phonecatControllers', [])
     .controller('PhoneListCtrl', ['$scope', 'Phone', PhoneListCtrl])
-    .controller('PhoneDetailCtrl', ['$scope', '$stateParams', '$location', 'Phone', PhoneDetailCtrl])
+    .controller('PhoneDetailCtrl', ['$scope', '$stateParams', '$state', 'Phone', PhoneDetailCtrl])
     .run(['$rootScope', function($rootScope) {
         $rootScope.$on('queryEmit', function(event, args) {
             $rootScope.$broadcast('queryBroadcast', args);
@@ -28,13 +28,13 @@
         });  
     }
     
-    function PhoneDetailCtrl($scope, $stateParams, $location, Phone) {
+    function PhoneDetailCtrl($scope, $stateParams, $state, Phone) {
         $scope.phoneId = $stateParams.phoneId;
 
 		$scope.phone = Phone.get({phoneId: $stateParams.phoneId}, function(phone) {
 			
 			if(phone.images == null) {
-				$location.path("/").replace();
+				$state.go('home', null, { location: "replace" });
 				return;
 			}
 			
