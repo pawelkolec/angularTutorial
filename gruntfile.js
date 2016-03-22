@@ -106,7 +106,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-less');
 	
-	grunt.registerTask('build-dist', ["clean:dist", "processhtml", "less:production", "cssmin", "clean:removeCss", "uglify"]);
+	grunt.registerTask('build-dist', ["clean:dist", "processhtml", "less:production", "cssmin", "clean:removeCss", "uglify", 'copy']);
 	grunt.registerTask('serve', ['express:dev', 'watch']);
-	grunt.registerTask('serve:dist', ['build-dist', 'copy', 'express:prod']);
+	grunt.registerTask('serve:dist', ['build-dist', 'express:prod']);
 }
