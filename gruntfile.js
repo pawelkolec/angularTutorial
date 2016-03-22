@@ -55,7 +55,6 @@ module.exports = function(grunt) {
 			main: {
 				files: [
 					{ expand: true, cwd: 'app', src: ['partials/**'], dest: 'dist' },
-					{ expand: true, cwd: 'app', src: ['phones/**'], dest: 'dist' },
 					{ expand: true, cwd: 'app', src: ['img/**'], dest: 'dist' },
 				],
 			},

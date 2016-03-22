@@ -6,8 +6,8 @@
     .factory('Phone', ['$resource', ResourcePhone]);
     
     function ResourcePhone($resource) {
-        return $resource('phones/:phoneId.json', {}, {
-            query: { method:'GET', params: { phoneId:'phones' }, isArray:true }
+        return $resource('api/phones/:phoneId', {}, {
+            query: { method:'GET', params: { phoneId:'' }, isArray:true }
         });
     }
 })();
