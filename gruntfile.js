@@ -46,10 +46,11 @@ module.exports = function(grunt) {
 		cssmin: {
 	  		target: {
 				files: {
-			  		'dist/style.min.css': ['app/bower_components/bootstrap/dist/css/bootstrap.css', 'app/css/**/*.css']
+			  		'dist/style.min.css': ['app/bower_components/bootstrap/dist/css/bootstrap.css', 'app/css/build/**/*.css']
 				}
 		  	}
   		},
+		
 		copy: {
 			main: {
 				files: [
@@ -74,10 +75,24 @@ module.exports = function(grunt) {
 				}
 			}
 		},
+		
+		less: {
+            production: {
+                files: [
+                    {
+                      expand: true,
+                      cwd: 'app/css/',
+                      src: ['**/*.less'],
+                      dest: 'app/css/build',
+                      ext: '.css'
+                    }
+                  ]
+            },
+        },
 
 		clean: {
 			dist: ["dist"],
-			buildFile: ["dist/build.js"]
+			removeCss: ["app/css/build"]
 		}
     });
     
@@ -89,8 +104,9 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-processhtml');
 	grunt.loadNpmTasks('grunt-express-server');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-less');
 	
-	grunt.registerTask('build-dist', ["clean:dist", "processhtml", "cssmin", "uglify"]);
+	grunt.registerTask('build-dist', ["clean:dist", "processhtml", "less:production", "cssmin", "clean:removeCss", "uglify"]);
 	grunt.registerTask('serve', ['express:dev', 'watch']);
 	grunt.registerTask('serve:dist', ['build-dist', 'copy', 'express:prod']);
 }

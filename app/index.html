@@ -6,8 +6,11 @@
   
 	<!-- build:css style.min.css -->
 	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
-	<link rel="stylesheet" href="css/app.css">
-	<link rel="stylesheet" href="css/animations.css">
+	<!-- /build -->
+	
+    <!-- build:remove -->
+	<link rel="stylesheet/less" href="css/app.less">
+	<link rel="stylesheet/less" href="css/animations.less">
 	<!-- /build -->
 	
 </head>
@@ -19,6 +22,10 @@
     </div>
 
     <!--<pre>{{phones | filter:query | orderBy:orderProp | json}}</pre>-->
+    
+    <!-- build:remove -->
+    <script src="bower_components/less/dist/less.js"></script>
+	<!-- /build -->
     
     <!-- build:js build.min.js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
