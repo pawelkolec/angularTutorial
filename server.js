@@ -4,6 +4,9 @@ var open = require('open');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
 var path = require('path');
+var mongoose = require('mongoose');
+
+var config = require('./config/config'); 
 
 var app = express();
 var PORT = 8000;
@@ -26,6 +29,15 @@ app.use("/phone", express.static(STATIC_DIR));
 //redirect all requests to main file
 app.get('*', function(req, res) {
 	res.sendFile(path.join(STATIC_DIR + '/index.html'));
+});
+
+// connect to mongo db
+mongoose.connect(config.database, function(err) {
+	if(err) {
+        log('connection error', err);
+    } else {
+        log('connection successful');
+    }
 });
 
 app.listen(PORT, function () {
