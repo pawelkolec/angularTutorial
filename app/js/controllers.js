@@ -13,7 +13,10 @@
 
     function PhoneListCtrl($scope, Phone) {
 
-        $scope.phones = Phone.query();
+        $scope.phones = Phone.query(function () {
+            
+            angular.element('.view-frame').addClass('loaded');
+        });
 
         $scope.name = "World";
         $scope.query = "";
@@ -39,6 +42,7 @@
 			}
 			
 			$scope.mainImageUrl = phone.images[0];
+            angular.element('.view-frame').addClass('loaded');
 			
 		}, function (error) {
 			

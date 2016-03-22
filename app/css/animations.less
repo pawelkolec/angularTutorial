@@ -43,6 +43,10 @@
   position: relative;
 }
 
+.view-frame:not(.loaded) {
+    opacity: 0;
+}
+
 .view-frame {
 	
 	&.ng-enter, &.ng-leave {
@@ -54,7 +58,7 @@
 	}
 }
 
-.view-frame.ng-enter {
+.view-frame.loaded {
   -webkit-animation: @defaultAnimationTime fade-in;
   animation: @defaultAnimationTime fade-in;
   z-index: 100;
