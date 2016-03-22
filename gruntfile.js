@@ -20,22 +20,6 @@ module.exports = function(grunt) {
     		}
 	  	},
 		
-        concat: {
-			options: {
-			  separator: ';',
-			},
-			dist: {
-			  src: [
-				'app/bower_components/jquery/dist/jquery.js',
-				'app/bower_components/angular/angular.js',
-				'app/bower_components/angular-resource/angular-resource.js',
-				'app/bower_components/angular-ui-router/release/angular-ui-router.min.js',
-				'app/bower_components/angular-animate/angular-animate.js',
-				'app/js/**/*.js',
-			  ],
-			  dest: 'dist/build.js',
-			},
-		},
         watch: {
 		  	options: {
     			livereload: true
@@ -76,10 +60,27 @@ module.exports = function(grunt) {
 			},
 		},
 		
-		clean: ["dist"]
+		uglify: {
+			main: {
+				files: {
+					'dist/build.min.js': [
+						'app/bower_components/jquery/dist/jquery.js',
+						'app/bower_components/angular/angular.js',
+						'app/bower_components/angular-resource/angular-resource.js',
+						'app/bower_components/angular-ui-router/release/angular-ui-router.min.js',
+						'app/bower_components/angular-animate/angular-animate.js',
+						'app/js/**/*.js'
+					]
+				}
+			}
+		},
+
+		clean: {
+			dist: ["dist"],
+			buildFile: ["dist/build.js"]
+		}
     });
     
-    grunt.loadNpmTasks('grunt-contrib-concat'); 
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
@@ -87,8 +88,9 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-regex-replace');
 	grunt.loadNpmTasks('grunt-processhtml');
 	grunt.loadNpmTasks('grunt-express-server');
+	grunt.loadNpmTasks('grunt-contrib-uglify');
 	
-	grunt.registerTask('build-dist', ["clean", "processhtml", "cssmin", "concat"]);
+	grunt.registerTask('build-dist', ["clean:dist", "processhtml", "cssmin", "uglify"]);
 	grunt.registerTask('serve', ['express:dev', 'watch']);
 	grunt.registerTask('serve:dist', ['build-dist', 'copy', 'express:prod']);
 }
